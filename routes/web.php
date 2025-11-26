@@ -9,9 +9,11 @@ Route::get('/blog', function () {
     return view('blog', ["title" => "Blog Page"]);
 });
 Route::get('/about', function () {
-    return view('about');
+    // return view('about', ["title" => "About Page"]);
+    return "thi is about page";
 });
 Route::get('/contact', function () {
-    return view('contact');
+    // return view('contact', ["title" => "Contact Page"]);
+    return "thi is contact page";
 });
 

@@ -1,7 +1,5 @@
-@extends("layouts.app")
-
-@section("title", $title)
-
-@section("content")
-    <p>this is about page</p>
-@endsection
+  <x-layout :title="$title">
+    <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+      <p>this is blog page</p>
+    </div>
+  </x-layout>
