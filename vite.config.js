@@ -3,7 +3,6 @@ import laravel from "laravel-vite-plugin";
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
-    // DARI DOCS laravel
     server: {
         hmr: {
             host: "ngeblog.test",

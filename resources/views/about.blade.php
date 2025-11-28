@@ -1,5 +1,3 @@
   <x-layout :title="$title">
-    <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
       <p>this is aboutd aku adalah anak tampan awokawokawok page</p>
-    </div>
   </x-layout>
