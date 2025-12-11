@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use Pest\Support\Arr;
+use Illuminate\Support\Arr;
 use Termwind\Components\Dd;
+use Illuminate\Support\Facades\Route;
+use phpDocumentor\Reflection\DocBlock\Tags\Return_;
 
 Route::get('/', function () {
     return view('home', ["title" => "Home Page"]);
@@ -12,6 +13,7 @@ Route::get('/posts', function () {
         // Arindan Aditiya (Web Developer)
         [
             "id" => 1,
+            "slug" => "tips-memulai-karir-sebagai-web-dev",
             "title" => "Tips Memulai Karier Sebagai Web Developer",
             "author" => "Arindan Aditiya",
             "date" => "20-11-2025",
@@ -21,6 +23,7 @@ Route::get('/posts', function () {
         // Ali Hanapiah (Data Analyst)
         [
             "id" => 2,
+            "slug" => "pengenalan-data-analis-untuk-mahasiswa-baru",
             "title" => "Pengenalan Data Analyst untuk Mahasiswa Baru",
             "author" => "Ali Hanapiah",
             "date" => "18-11-2025",
@@ -30,6 +33,40 @@ Route::get('/posts', function () {
 
 
     return view('posts', ["title" => "Blog Page", "posts" => $posts]);
+});
+
+Route::get("/post/{slug}", function($slug){
+    $posts = [
+        // Arindan Aditiya (Web Developer)
+        [
+            "id" => 1,
+            "slug" => "tips-memulai-karir-sebagai-web-dev",
+            "title" => "Tips Memulai Karier Sebagai Web Developer",
+            "author" => "Arindan Aditiya",
+            "date" => "20-11-2025",
+            "body" => "Buat kau yang baru mau mulai jadi web developer, hal pertama yang perlu dipahami adalah dasar-dasar seperti HTML, CSS, dan JavaScript. Tiga hal ini jadi fondasi sebelum masuk ke framework modern. Setelah itu, pelajari juga cara kerja internet, hosting, dan sedikit tentang desain biar kode yang kau buat lebih enak dipakai. ."
+        ],
+
+        // Ali Hanapiah (Data Analyst)
+        [
+            "id" => 2,
+            "slug" => "pengenalan-data-analis-untuk-mahasiswa-baru",
+            "title" => "Pengenalan Data Analyst untuk Mahasiswa Baru",
+            "author" => "Ali Hanapiah",
+            "date" => "18-11-2025",
+            "body" => "Seorang Data Analyst punya tugas utama ngumpulin, ngelola, dan memahami data supaya bisa bantu ngambil keputusan yang tepat. Profesi ini penting karena hampir semua perusahaan sekarang bergantung sama data. Untuk mulai belajar, kau bisa pahami dasar statistik, cara baca grafik, dan belajar tools kayak Excel atau SQL."
+        ]
+    ];
+
+    $post = Arr::first($posts, function($post) use ($slug){ 
+        return $post["slug"] == $slug;
+    }); 
+
+    // kalau nggk ada post nya kasih pesan not found
+    abort_if(!$post, 404);
+
+    return view("post", ["title" => "Single Post", "post" => $post]);
+
 });
 Route::get('/about', function () {
     return view('about', ["title" => "About Page"]);
