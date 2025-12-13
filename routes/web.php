@@ -11,6 +11,7 @@ Route::get('/', function () {
 });
 Route::get('/posts', function () {
     $posts = Post::all();
+    dd($posts);
     return view('posts', ["title" => "All Page", "posts" => $posts]);
 });
 
