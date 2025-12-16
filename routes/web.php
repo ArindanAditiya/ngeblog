@@ -14,9 +14,11 @@ Route::get('/posts', function () {
     $posts = Post::all();
     return view('posts', ["title" => "All Blog Posts", "posts" => $posts]);
 });
-Route::get('/authors/{User}', function (User $user) {
-    $posts = Post::all();
-    return view('posts', ["title" => "Article By $user->name", "posts" => $user->posts]);
+Route::get('/authors/{user}', function (User $user) {
+    return view('posts', [
+        "title" => "Article By $user->name", 
+        "posts" => $user->posts
+    ]);
 });
 
 Route::get("/post/{post:slug}", function(Post $post){
