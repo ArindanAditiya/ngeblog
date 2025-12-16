@@ -6,7 +6,6 @@ use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Post>
  */
@@ -20,8 +19,13 @@ class PostFactory extends Factory
     public function definition(): array
     {
         $title = fake()->sentence(rand(6,8));
+        $categories = ["Web Technologies", "Graphic Design", "Data Mining", "Cloud Computing", "Machine Learning"];
+        $randCategory = $categories[rand(0, 4)];
+
         return [
             "title" => $title,
+            "category" => $randCategory,
+            "category_slug" => Str::slug($randCategory),
             "author_id" => User::factory(),
             "slug" => Str::slug($title),
             "body" => fake()->text()

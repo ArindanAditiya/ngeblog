@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string("title");
             $table->string("slug");
+            $table->string("category");
+            $table->string("category_slug");
             $table->unsignedBigInteger('author_id');
             $table->foreign('author_id')->references('id')->on('users');
             $table->text("body");
