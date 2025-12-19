@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string("title");
             $table->string("slug");
+            $table->text("body");
             // $table->unsignedBigInteger('author_id');
             // $table->foreign('author_id')->references('id')->on('users');
             $table->foreignId('author_id')->constrained(
@@ -25,7 +26,6 @@ return new class extends Migration
                 table: 'categories', 
                 indexName: 'posts_category_id'
             );
-            $table->text("body");
             $table->timestamps();
         });
     }

@@ -10,11 +10,21 @@ class Post extends Model
 {
     use HasFactory;
     // protected $table = "blog_posts"; // kalo mau nama tablenya beda sama nama modelnya harus pake ini
+ 
+    /*  kalau semisalnya project laravel hrus 
+        menjalankan eager load  dari awal maka harus diset di "App\Providers\AppServiceProvider"
+        tambahkan "Model::preventLazyLoad()" di method boot()
+        kalau tidak menjalankan eagerload dari awal maka akan error 
+        "Attempted to lazy load [author] on model [App\Models\Post] but lazy loading is disabled"
+    */
 
-    // yang boleh diisi
+    // set defualat agar menjalankan eager load dari awal 
+    protected $with = ["author", "category"];
+
+    // field yang boleh diisi pake factory
     protected $fillable = ["title", "author", "slug", "body"];
 
-    // yang nggk boleh diisi
+    // field yang nggk boleh diisi pake factory
     // protected $guarded = ["id"];
 
     public function author(): BelongsTo
