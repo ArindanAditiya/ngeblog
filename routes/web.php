@@ -9,6 +9,8 @@ use Termwind\Components\Dd;
 use Illuminate\Support\Facades\Route;
 use phpDocumentor\Reflection\DocBlock\Tags\Return_;
 
+use function Laravel\Prompts\search;
+
 // other route
 Route::get('/', function () {
     return view('home', ["title" => "Home Page"]);
@@ -33,8 +35,13 @@ Route::get('/posts', function () {
      * eager load = semangat ngeload (ngelakuin  query dari awal)
      * $posts = Post::with(["category", "author"])->latest()->get();
     */
+    $posts = Post::latest();
 
-    return view('posts', ["title" => "All Blog Posts", "posts" => Post::all()]);
+    if(request("search")){
+        $posts->where("title", "like", "%". request("search") . "%");
+    }
+
+    return view('posts', ["title" => "All Blog Posts", "posts" => $posts->get()]);
 });
 Route::get("/post/{post:slug}", function(Post $post){
     return view("post", ["title" => "Single Post", "post" => $post]);
