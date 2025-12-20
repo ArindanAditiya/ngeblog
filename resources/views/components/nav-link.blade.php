@@ -11,6 +11,6 @@
 @endphp
 
 <a href="{{ $href }}" 
-{{ $attributes->merge(["class" => "block rounded-md px-3 py-2 text-base font-medium " . $classes, "aria-current" => $ariaCurrent]) }}>
+{{ $attributes->merge(["class" => "inline-block rounded-md px-3 py-2 text-base font-medium " . $classes, "aria-current" => $ariaCurrent]) }}>
     {{ $slot }}
 </a>

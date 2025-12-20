@@ -49,7 +49,7 @@ Route::get("/category/{category:slug}", function(Category $category){
     */
     return view("posts", [
         "title" => "Category $category->name", 
-        "posts" => $category
+        "posts" => $category->posts
     ]);
 });
 
@@ -62,6 +62,6 @@ Route::get('/authors/{user:username}', function (User $user) {
     */
     return view('posts', [
         "title" => count($user->posts) . " Article By $user->name", 
-        "posts" => $user
+        "posts" => $user->posts
     ]);
 });
