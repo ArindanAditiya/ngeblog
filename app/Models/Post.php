@@ -5,6 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Attributes\Scope;
+use Illuminate\Database\Eloquent\Builder;
+
 
 class Post extends Model
 {
@@ -27,6 +30,7 @@ class Post extends Model
     // field yang nggk boleh diisi pake factory
     // protected $guarded = ["id"];
 
+    // RELASI
     public function author(): BelongsTo
     {
         return $this->belongsTo(User::class);
@@ -36,4 +40,30 @@ class Post extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    // query scope
+    #[Scope] 
+    protected function filter(Builder $query, array $filters): void
+    {
+        $query->when($filters["search"] ?? false, function ($query, $search) {
+           return $query->where("title", "like", "%". $search . "%");
+        });
+        
+        $query->when($filters["author"] ?? false, function ($query, $author) {
+           return $query->whereHas(
+                "author", 
+                fn(Builder $query) =>                                                           
+                    $query->where("username", $author)
+            );
+        });
+
+        $query->when($filters["category"] ?? false, function ($query, $category) {
+           return $query->whereHas(
+                "category", 
+                fn(Builder $query) =>                                                           
+                    $query->where("slug", $category)
+            );
+        });
+    }
 }
+
